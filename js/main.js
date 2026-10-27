@@ -16,20 +16,20 @@
   const FALLBACK_PHONE = '+917397367364';
   const FALLBACK_WHATSAPP = 'https://wa.me/917397367364';
 
-const whatsappNumber = FALLBACK_WHATSAPP;
+// const whatsappNumber = FALLBACK_WHATSAPP;
 
-const message = [
-  'New Discovery Call Request',
-  '',
-  `Name: ${name}`,
-  `Phone: ${phone}`,
-  `Preferred Time: ${time}`
-].join('\n');
+// const message = [
+//   'New Discovery Call Request',
+//   '',
+//   `Name: ${name}`,
+//   `Phone: ${phone}`,
+//   `Preferred Time: ${time}`
+// ].join('\n');
 
-const whatsappURL =
-  `${whatsappNumber}?text=${encodeURIComponent(message)}`;
+// const whatsappURL =
+//   `${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-window.open(whatsappURL, '_blank');
+// window.open(whatsappURL, '_blank');
 
   function safeStorageGet(key, fallback = null) {
     try {
