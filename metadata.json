@@ -1,0 +1,8 @@
+{
+  "name": "Remix Dr. Selvi Shanmugi · Psychotherapist Portfolio",
+  "description": "Quiet wellness magazine editorial portfolio for Dr. Selvi Shanmugi, M.Sc. Clinical Psychology. Thoughtful psychotherapy in Erode and online.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
