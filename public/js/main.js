@@ -13,8 +13,9 @@
      ========================================================================== */
   // TODO: Confirm Formspree endpoint with Dr. Selvi Shanmugi before production
   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
-  const FALLBACK_PHONE = '+91 98401 23456';
-  const FALLBACK_WHATSAPP = 'https://wa.me/919840123456';
+  const FALLBACK_PHONE = '+917397367364';
+  const FALLBACK_WHATSAPP = 'https://wa.me/917397367364';
+
 
   function safeStorageGet(key, fallback = null) {
     try {
@@ -153,26 +154,31 @@
     const bottomActions = document.getElementById('hero-bottom-actions');
     const heroChars = document.querySelectorAll('.hero-char');
 
-    // 1. Photo settles
-    if (photoImg) {
-      photoImg.classList.add('is-settled');
-    }
+    // Double rAF ensures the browser paints the initial transform/opacity/blur first
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // 1. Photo settles from scale 1.06 to 1.0 over 2.2s
+        if (photoImg) {
+          photoImg.classList.add('is-settled');
+        }
 
-    // 2. Eyebrow and nav fade down
-    setTimeout(() => {
-      if (nav) nav.classList.add('is-loaded');
-      if (eyebrow) eyebrow.classList.add('is-loaded');
-    }, 150);
+        // 2. Eyebrow and nav fade down into place
+        setTimeout(() => {
+          if (nav) nav.classList.add('is-loaded');
+          if (eyebrow) eyebrow.classList.add('is-loaded');
+        }, 150);
 
-    // 3. Letters of SHANMUGI rise out of blur, 95ms apart
-    setTimeout(() => {
-      heroChars.forEach((ch) => ch.classList.add('is-revealed'));
-    }, 280);
+        // 3. Letters of SELVI rise out of blur, 95ms apart
+        setTimeout(() => {
+          heroChars.forEach((ch) => ch.classList.add('is-revealed'));
+        }, 280);
 
-    // 4. Pills rise in last at ~1.05s
-    setTimeout(() => {
-      if (bottomActions) bottomActions.classList.add('is-loaded');
-    }, 1050);
+        // 4. Centered Book Call & Calm pills rise in at ~1.05s
+        setTimeout(() => {
+          if (bottomActions) bottomActions.classList.add('is-loaded');
+        }, 1050);
+      });
+    });
   }
 
   function applyHeroScroll(scrollY) {
@@ -273,7 +279,7 @@
           }
         });
       },
-      { threshold: 0.35 }
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
     );
 
     observer.observe(statementSection);
@@ -348,7 +354,7 @@
           }
         });
       },
-      { threshold: 0.30 }
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
     );
 
     observer.observe(factsSection);
@@ -798,7 +804,7 @@
   /* ==========================================================================
      12. BOOTSTRAP ALL MODULES WITH TRY/CATCH DEFENSE
      ========================================================================== */
-  document.addEventListener('DOMContentLoaded', () => {
+  function bootstrap() {
     safeRun(initTheme, 'Theme Controller');
     safeRun(initDialogs, 'Native Dialogs');
     safeRun(initHeroSequence, 'Hero Load Sequence');
@@ -813,6 +819,12 @@
     // Sync copyright year
     const yearEl = document.getElementById('current-year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootstrap);
+  } else {
+    bootstrap();
+  }
 
 })();
