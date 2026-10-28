@@ -17,7 +17,6 @@
   const FALLBACK_WHATSAPP = 'https://wa.me/917397367364';
 
 
-
   function safeStorageGet(key, fallback = null) {
     try {
       return localStorage.getItem(key) || fallback;
