@@ -565,19 +565,27 @@ a {
   position: absolute;
   bottom: clamp(20px, 4vh, 40px);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(16px);
   z-index: 20;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
   pointer-events: auto;
   opacity: 0;
-  transition: opacity var(--dur-slow) var(--ease-out) 1050ms, transform var(--dur-slow) var(--ease-out) 1050ms;
+  transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
 }
 
 .hero-bottom-actions.is-loaded {
   opacity: 1;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(0);
+}
+
+.hero-btn-center {
+  margin: 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .btn-calm-sound {
@@ -587,6 +595,11 @@ a {
 @media (min-width: 761px) {
   .btn-calm-sound {
     display: inline-flex;
+    position: absolute;
+    left: calc(100% + 14px);
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
   }
 }
 
@@ -1681,7 +1694,12 @@ dialog[open] .dialog-card {
     height: 100%;
     object-fit: cover;
     object-position: center 25%;
-    transform: none !important;
+    transform: scale(1.06);
+    transition: transform 2.2s var(--ease-breathe);
+  }
+
+  .hero-photo-layer .hero-bg-img.is-settled {
+    transform: scale(1);
   }
 
   .hero-melt-gradient {
@@ -1817,8 +1835,14 @@ dialog[open] .dialog-card {
     white-space: nowrap;
     display: block;
     margin-bottom: 6px;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: opacity var(--dur-slow) var(--ease-out) 150ms, transform var(--dur-slow) var(--ease-out) 150ms;
+  }
+
+  .hero-title-label.is-loaded {
     opacity: 1;
-    transform: none;
+    transform: translateY(0);
   }
 
   .hero-display-title {
@@ -1835,9 +1859,19 @@ dialog[open] .dialog-card {
 
   .hero-char {
     display: inline-block;
+    opacity: 0;
+    transform: translateY(0.18em);
+    filter: blur(8px);
+    transition: opacity var(--dur-slow) var(--ease-breathe),
+                transform var(--dur-slow) var(--ease-breathe),
+                filter var(--dur-slow) var(--ease-breathe);
+    transition-delay: calc(var(--i, 0) * 95ms);
+  }
+
+  .hero-char.is-revealed {
     opacity: 1;
-    transform: none;
-    filter: none;
+    transform: translateY(0);
+    filter: blur(0);
   }
 
   /* ------------------------------------------------------------------------
@@ -1885,7 +1919,6 @@ dialog[open] .dialog-card {
     position: relative;
     bottom: auto;
     left: auto;
-    transform: none;
     width: 100%;
     max-width: 360px;
     padding: 10px 16px 0;
@@ -1894,9 +1927,16 @@ dialog[open] .dialog-card {
     flex-direction: column;
     align-items: center;
     z-index: 20;
-    opacity: 1;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
     box-sizing: border-box;
     flex-shrink: 0;
+  }
+
+  .hero-bottom-actions.is-loaded {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .hero-bottom-actions .btn-primary {
